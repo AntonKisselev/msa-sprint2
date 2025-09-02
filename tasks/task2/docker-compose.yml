@@ -6,6 +6,9 @@ services:
       context: ../monolith
       dockerfile: Dockerfile
     container_name: hotelio-monolith
+    links:
+      - booking-service
+      - monolith-db
     ports:
       - "8084:8080"
     networks:
@@ -14,7 +17,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://monolith-db:5432/hotelio
       SPRING_DATASOURCE_USERNAME: hotelio
       SPRING_DATASOURCE_PASSWORD: hotelio
-      BOOKING_SERVICE_EXTERNAL_HOST: booking-service
+      BOOKING_SERVICE_EXTERNAL_HOST: 172.17.0.1
       BOOKING_SERVICE_EXTERNAL_PORT: 9090
 
   monolith-db:
@@ -28,6 +31,55 @@ services:
       - "5432:5432"
     volumes:
       - monolith-db-data:/var/lib/postgresql/data
+    networks:
+      - hotelio-net
+
+  booking-db:
+    image: postgres:15
+    container_name: hotelio-booking-db
+    environment:
+      POSTGRES_USER: hotelio-booking
+      POSTGRES_PASSWORD: hotelio-booking
+      POSTGRES_DB: hotelio-booking
+    ports:
+      - "5433:5432"
+    volumes:
+      - booking-db-data:/var/lib/postgresql/data
+    networks:
+      - hotelio-net
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: DockerfileBookingService
+    container_name: hotelio-booking-service
+    links:
+      - booking-db
+    volumes:
+      - ./booking_service:/home/run/booking_service
+    ports:
+      - "9090:9090"
+    networks:
+      - hotelio-net
+
+
+  #добавлен просто для удобства, в проде такого быть не должно, но к задаче этот файл не относится
+  hotelio-tester:
+    image: hotelio-tester
+    links:
+      - monolith
+    environment:
+      DB_HOST: monolith-db
+      DB_PORT: 5432
+      DB_NAME: hotelio
+      DB_USER: hotelio
+      DB_PASSWORD: hotelio
+      BOOKING_DB_HOST: booking-db
+      BOOKING_DB_PORT: 5432
+      BOOKING_DB_NAME: hotelio-booking
+      BOOKING_DB_USER: hotelio-booking
+      BOOKING_DB_PASSWORD: hotelio-booking
+      API_URL: http://monolith:8080
     networks:
       - hotelio-net
 
@@ -54,6 +106,7 @@ services:
 
 volumes:
   monolith-db-data:
+  booking-db-data:
 
 networks:
   hotelio-net:
