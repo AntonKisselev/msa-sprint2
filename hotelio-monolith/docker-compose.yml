@@ -4,7 +4,7 @@ services:
   monolith:
     build:
       context: .
-      dockerfile: DockerfileBookingService
+      dockerfile: Dockerfile
     container_name: hotelio-monolith
     ports:
       - "8084:8080"

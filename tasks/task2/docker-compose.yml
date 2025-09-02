@@ -62,6 +62,16 @@ services:
     networks:
       - hotelio-net
 
+  booking-history-service:
+    build:
+      context: ./booking-history-service
+      dockerfile: Dockerfile
+    container_name: hotelio-booking-history-service
+    links:
+      - booking-service
+    networks:
+      - hotelio-net
+
 
   #добавлен просто для удобства, в проде такого быть не должно, но к задаче этот файл не относится
   hotelio-tester:

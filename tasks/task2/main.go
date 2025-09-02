@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"log"
 	"net"
 	"time"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
+	"github.com/segmentio/kafka-go"
 
 	pb "booking/booking"
 
@@ -15,6 +17,7 @@ import (
 )
 
 var conn *pgx.Conn
+var writer *kafka.Writer
 
 type server struct {
 	pb.UnimplementedBookingServiceServer
@@ -24,7 +27,7 @@ func (s *server) CreateBooking(ctx context.Context, req *pb.BookingRequest) (*pb
 	log.Printf("Received: CreateBooking %v", req)
 
 	created := time.Now()
-	booking := pb.BookingResponse{
+	booking := &pb.BookingResponse{
 		Id:              "",
 		UserId:          req.UserId,
 		HotelId:         req.HotelId,
@@ -40,8 +43,12 @@ func (s *server) CreateBooking(ctx context.Context, req *pb.BookingRequest) (*pb
 		log.Fatal(err)
 	}
 	log.Println("Booking added id = ", booking.Id)
+	err = writeKafka(booking)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	return &booking, nil
+	return booking, nil
 }
 
 func (s *server) ListBookings(ctx context.Context, req *pb.BookingListRequest) (*pb.BookingListResponse, error) {
@@ -86,6 +93,29 @@ func (s *server) ListBookings(ctx context.Context, req *pb.BookingListRequest) (
 	return res, nil
 }
 
+func writeKafka(booking *pb.BookingResponse) error {
+	// Сериализация в JSON
+	messageBytes, err := json.Marshal(booking)
+	if err != nil {
+		return err
+	}
+
+	// Создание Kafka сообщения
+	msg := kafka.Message{
+		Key:   []byte(booking.Id),
+		Value: messageBytes,
+	}
+
+	// Отправка сообщения
+	err = writer.WriteMessages(context.Background(), msg)
+	if err != nil {
+		return err
+	}
+
+	log.Println("Message sent successfully to kafka")
+	return nil
+}
+
 func main() {
 	// Подключение к базе данных
 	connStr := "postgres://hotelio-booking:hotelio-booking@booking-db:5432/hotelio-booking"
@@ -100,6 +130,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	/// kafka connect
+	writer = kafka.NewWriter(kafka.WriterConfig{
+		Brokers:  []string{"kafka:9092"},
+		Topic:    "bookings",
+		Balancer: &kafka.LeastBytes{},
+	})
+	defer writer.Close()
 
 	s := grpc.NewServer()
 	pb.RegisterBookingServiceServer(s, &server{})

@@ -1,0 +1,49 @@
+GET http://localhost:8084/api/bookings?userId=test-user-2
+получение списка через монолит
+[
+    {
+        "id": 34,
+        "userId": "test-user-2",
+        "hotelId": "test-hotel-1",
+        "promoCode": "TESTCODE1",
+        "discountPercent": 0.0,
+        "price": 0.0,
+        "createdAt": "2025-09-02T16:20:26Z"
+    },
+    {
+        "id": 31,
+        "userId": "test-user-2",
+        "hotelId": "test-hotel-1",
+        "promoCode": "TESTCODE1",
+        "discountPercent": 10.0,
+        "price": 90.0,
+        "createdAt": "2025-09-02T16:20:23Z"
+    }
+]
+
+
+получение списка через gRPC напрямую в сервис
+пКЗС localhost:9090
+
+{
+    "bookings": [
+        {
+            "id": 34,
+            "userId": "test-user-2",
+            "hotelId": "test-hotel-1",
+            "promoCode": "TESTCODE1",
+            "discountPercent": 0.0,
+            "price": 0.0,
+            "createdAt": "2025-09-02T16:20:26Z"
+        },
+         {
+             "id": 31,
+             "userId": "test-user-2",
+             "hotelId": "test-hotel-1",
+             "promoCode": "TESTCODE1",
+             "discountPercent": 10.0,
+             "price": 90.0,
+             "createdAt": "2025-09-02T16:20:23Z"
+         }
+    ]
+}
