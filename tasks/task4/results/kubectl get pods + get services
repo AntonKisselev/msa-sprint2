@@ -1,0 +1,8 @@
+kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+booking-service-68d7fb6f6d-jm5v2   1/1     Running   0          81m
+
+kubectl get services
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+booking-service   ClusterIP   10.98.89.117   <none>        80/TCP    82m
+kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP   15h

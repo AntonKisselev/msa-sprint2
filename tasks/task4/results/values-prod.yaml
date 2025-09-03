@@ -1,0 +1,32 @@
+replicaCount: 2
+
+image:
+  name: booking-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+resources:
+
+livenessProbe:
+  httpGet:
+    path: /ping # Эндпоинт для проверки
+    port: 8080    # Порт контейнера
+  initialDelaySeconds: 15 # Ждать 15 секунд после старта контейнера перед первой проверкой
+  periodSeconds: 10       # Выполнять проверку каждые 10 секунд
+  timeoutSeconds: 5       # Ждать ответа 5 секунд, потом считать ошибкой
+  failureThreshold: 3     # После 3 неудачных попыток подряд считать контейнер нерабочим
+  successThreshold: 1
+
+readinessProbe:
+  httpGet:
+    path: /ping  # Часто это другой, более строгий эндпоинт
+    port: 8080
+  initialDelaySeconds: 5   # Начинаем проверять готовность раньше, чем живучесть
+  periodSeconds: 5         # Проверяем готовность чаще
+  failureThreshold: 1
+

@@ -1,0 +1,24 @@
+docker build -t booking-service:latest .
+
+[+] Building 1.3s (13/13) FINISHED                                                                                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                                                                   0.0s
+ => => transferring dockerfile: 843B                                                                                                                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/golang:1.21-alpine                                                                                                                                                  1.3s
+ => [auth] library/golang:pull token for registry-1.docker.io                                                                                                                                                          0.0s
+ => [internal] load .dockerignore                                                                                                                                                                                      0.0s
+ => => transferring context: 2B                                                                                                                                                                                        0.0s
+ => [1/7] FROM docker.io/library/golang:1.21-alpine@sha256:2414035b086e3c42b99654c8b26e6f5b1b1598080d65fd03c7f499552ff4dc94                                                                                            0.0s
+ => [internal] load build context                                                                                                                                                                                      0.0s
+ => => transferring context: 61B                                                                                                                                                                                       0.0s
+ => CACHED [2/7] RUN apk add --no-cache curl                                                                                                                                                                           0.0s
+ => CACHED [3/7] WORKDIR /app                                                                                                                                                                                          0.0s
+ => CACHED [4/7] COPY main.go .                                                                                                                                                                                        0.0s
+ => CACHED [5/7] COPY check-dns.sh .                                                                                                                                                                                   0.0s
+ => CACHED [6/7] RUN chmod +x check-dns.sh                                                                                                                                                                             0.0s
+ => CACHED [7/7] RUN go build -o booking-service main.go                                                                                                                                                               0.0s
+ => exporting to image                                                                                                                                                                                                 0.0s
+ => => exporting layers                                                                                                                                                                                                0.0s
+ => => writing image sha256:f18658857f7843d0aefa92c5b560386b18b975a181ef94b5065212f88522f967                                                                                                                           0.0s
+ => => naming to docker.io/library/booking-service:latest                                                                                                                                                              0.0s
+
+
