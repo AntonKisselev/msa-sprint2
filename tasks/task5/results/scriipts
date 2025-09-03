@@ -1,0 +1,20 @@
+./check-canary.sh
+▶️ Checking canary release (90% v1, 10% v2)...
+pongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpongpong
+
+./check-fallback.sh
+▶️ Testing fallback route...
+pong
+
+./check-feature-flag.sh
+▶️ Проверка Feature Flag (X-Feature-Enabled: true)...
+pong
+
+./check-istio.sh
+▶️ Проверка установки Istio...
+NAME                                    READY   STATUS    RESTARTS   AGE
+istio-egressgateway-559bd55945-52fpf    1/1     Running   0          90m
+istio-ingressgateway-74df47f5f9-l8bcc   1/1     Running   0          90m
+istiod-85798b5866-9b9tl                 1/1     Running   0          90m
+▶️ Проверка Istio инъекции в default namespace...
+"enabled"

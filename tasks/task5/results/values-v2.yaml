@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-service-v2
+  labels:
+    app: booking-service
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-service
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: booking-service
+        version: v2
+    spec:
+      containers:
+        - name: booking-service
+          image: booking-service:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: X-Feature-Enabled
+              value: "true"
+      restartPolicy: Always
