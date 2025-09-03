@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    container_name: hotelio-booking-service
+    ports:
+      - "8080:8080"
+    networks:
+      - hotelio-net
+
+
+networks:
+  hotelio-net:
+    external: true

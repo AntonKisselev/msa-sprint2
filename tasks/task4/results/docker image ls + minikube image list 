@@ -1,0 +1,68 @@
+docker image ls
+REPOSITORY                                     TAG              IMAGE ID       CREATED        SIZE
+task4-booking-service                          latest           d09b3d374857   15 hours ago   297MB
+booking-service                                latest           f18658857f78   15 hours ago   297MB
+task3-hotel-subgraph                           latest           5cc402457e1c   17 hours ago   1.14GB
+task3-booking-subgraph                         latest           a1e9d6fcf10f   17 hours ago   1.14GB
+<none>                                         <none>           a50662e555a2   17 hours ago   1.14GB
+<none>                                         <none>           5c1cbaa18351   17 hours ago   1.14GB
+<none>                                         <none>           6c4411e9bb34   17 hours ago   1.18GB
+<none>                                         <none>           2570f2302c83   17 hours ago   1.14GB
+<none>                                         <none>           453fa468168c   17 hours ago   1.14GB
+<none>                                         <none>           298979f35314   17 hours ago   1.14GB
+<none>                                         <none>           4fafb26e38e6   17 hours ago   1.14GB
+<none>                                         <none>           27798ab2b863   17 hours ago   1.18GB
+<none>                                         <none>           c33920342772   17 hours ago   1.14GB
+<none>                                         <none>           c5ed9873c454   17 hours ago   1.14GB
+<none>                                         <none>           eb1413a75a53   17 hours ago   1.18GB
+<none>                                         <none>           de35b024c2cc   17 hours ago   1.14GB
+<none>                                         <none>           1c56835655cc   17 hours ago   1.18GB
+<none>                                         <none>           9ceaaea6e5eb   17 hours ago   1.14GB
+<none>                                         <none>           70d10e6e147b   17 hours ago   1.18GB
+<none>                                         <none>           acfdac7e916a   17 hours ago   1.14GB
+<none>                                         <none>           ce0835de4412   17 hours ago   1.14GB
+<none>                                         <none>           37b0a812642c   17 hours ago   1.18GB
+<none>                                         <none>           701f7e87c6c6   17 hours ago   1.14GB
+<none>                                         <none>           f64c8d1195e1   17 hours ago   1.14GB
+<none>                                         <none>           502dddcf60ef   18 hours ago   1.14GB
+task3-apollo-gateway                           latest           8ff72567aaae   18 hours ago   1.18GB
+<none>                                         <none>           fe87ae401347   18 hours ago   1.14GB
+<none>                                         <none>           78db886e4869   18 hours ago   1.14GB
+task2-booking-history-service                  latest           95c1093e90c3   19 hours ago   144MB
+hotelio-tester                                 latest           a7394b459ded   19 hours ago   91.8MB
+<none>                                         <none>           6d214a1177d1   20 hours ago   91.8MB
+<none>                                         <none>           d86ea059a636   23 hours ago   91.8MB
+task2-booking-service                          latest           933930bd16c0   25 hours ago   134MB
+<none>                                         <none>           8ae73a279342   27 hours ago   91.8MB
+task1-monolith                                 latest           aea24e823541   28 hours ago   472MB
+task2-monolith                                 latest           e6a346a8f022   28 hours ago   472MB
+docker-php_app_public                          latest           2c1a398ae91e   12 days ago    1.07GB
+docker-php_roadrunner_crm_app                  latest           6933f792f282   12 days ago    1.03GB
+<none>                                         <none>           67fa42cd6660   13 days ago    1.02GB
+<none>                                         <none>           5c4295455220   13 days ago    1.07GB
+registry.itsheff.cloud:10443/site_php_fpm_74   latest           f23f4064aea4   2 weeks ago    1.07GB
+postgres                                       15               e195b2889efd   2 weeks ago    445MB
+clickhouse                                     latest           577e072221ce   2 weeks ago    766MB
+nginx                                          alpine           4a86014ec699   2 weeks ago    52.5MB
+hello-world                                    latest           1b44b5a3e06a   3 weeks ago    10.1kB
+manticoresearch/manticore                      latest           135857a9bb45   3 weeks ago    496MB
+redis                                          6.2              59c71bbd984b   8 weeks ago    106MB
+gcr.io/k8s-minikube/kicbase                    v0.0.46          e72c4cbe9b29   7 months ago   1.31GB
+mysql                                          5.7.40           d410f4167eea   2 years ago    495MB
+confluentinc/cp-kafka                          7.2.1            d893473a6510   3 years ago    782MB
+confluentinc/cp-zookeeper                      7.2.1            3f28db6a433d   3 years ago    782MB
+rabbitmq                                       3.8-management   818bf18535d7   3 years ago    253MB
+rediscommander/redis-commander                 latest           778af9bd6397   4 years ago    77.8MB
+
+
+minikube image list
+registry.k8s.io/pause:3.10
+registry.k8s.io/kube-scheduler:v1.32.0
+registry.k8s.io/kube-proxy:v1.32.0
+registry.k8s.io/kube-controller-manager:v1.32.0
+registry.k8s.io/kube-apiserver:v1.32.0
+registry.k8s.io/etcd:3.5.16-0
+registry.k8s.io/coredns/coredns:v1.11.3
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/library/busybox:latest
+docker.io/library/booking-service:latest
